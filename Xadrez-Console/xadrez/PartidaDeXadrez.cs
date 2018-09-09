@@ -6,8 +6,8 @@ using Xadrez_Console.tabuleiro;
 namespace Xadrez_Console.xadrez {
     class PartidaDeXadrez {
         public Tabuleiro tab;
-        private int turno;
-        private Cor JogadorAtual;
+        public int turno { get; private set; }
+        public Cor JogadorAtual { get; private set; }
         public bool terminada { get; private set; }
 
         public PartidaDeXadrez() {
@@ -16,6 +16,9 @@ namespace Xadrez_Console.xadrez {
             turno = 1;
             colocarPecas();
         }
+
+         
+
         public void executaMovimento(Posicao origem, Posicao destino) {
             Peca p = tab.retirarPeca(origem);
             p.incrementarQntMovimento();
@@ -23,6 +26,37 @@ namespace Xadrez_Console.xadrez {
             tab.colocarPeca(p, destino);
 
         }
+
+        public void realizaJogada(Posicao origem, Posicao destino) {
+            executaMovimento(origem, destino);
+            turno++;
+            mudaJogador();
+        }
+
+        private void mudaJogador() {
+            if (JogadorAtual == Cor.Branca) {
+                JogadorAtual = Cor.Preta;
+            }
+            else { JogadorAtual = Cor.Branca; }
+        }
+
+        public void validarPosicaoDeOrigem(Posicao pos) {
+            if (tab.peca(pos) == null) {
+                throw new TabuleiroException("Não existe peça na posição de origem escolhida!");
+            }
+            if (tab.peca(pos).cor != JogadorAtual) {
+                throw new TabuleiroException("A peça de origem escolhida não é sua!");
+            }
+            if (tab.peca(pos).existeMovimentosPossiveis() == false) {
+                throw new TabuleiroException("Não há movimentos possíveis para a peça de origem escolhida");
+            }
+        }
+        public void validarPosicaoDeDestino(Posicao origem,Posicao destino) {
+            if (tab.peca(origem).podeMoverPara(destino)==false){
+                throw new TabuleiroException("Posição de destino inválida");
+            }
+        }
+
         private void colocarPecas() {
             tab.colocarPeca(new Torre(tab, Cor.Preta), new PosicaoXadrez('a',8).toPosicao());
             tab.colocarPeca(new Cavalo(tab, Cor.Preta), new PosicaoXadrez('b', 8).toPosicao());
@@ -56,7 +90,7 @@ namespace Xadrez_Console.xadrez {
             tab.colocarPeca(new Peao(tab, Cor.Branca), new PosicaoXadrez('e', 2).toPosicao());
             tab.colocarPeca(new Peao(tab, Cor.Branca), new PosicaoXadrez('f', 2).toPosicao());
             tab.colocarPeca(new Peao(tab, Cor.Branca), new PosicaoXadrez('g', 2).toPosicao());
-            tab.colocarPeca(new Peao(tab, Cor.Branca), new PosicaoXadrez('h', 2).toPosicao());
+            //tab.colocarPeca(new Peao(tab, Cor.Branca), new PosicaoXadrez('h', 2).toPosicao());
 
         }
     }
