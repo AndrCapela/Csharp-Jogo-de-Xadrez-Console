@@ -11,9 +11,7 @@ namespace Xadrez_Console {
                 while (!partida.terminada) {
                     try {
                         Console.Clear();
-                        Tela.imprimirTabuleiro(partida.tab);
-                        Console.WriteLine("\nTurno: " + partida.turno);
-                        Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+                        Tela.imprimirPartida(partida);
 
                         Console.Write("\nOrigem: ");
 
@@ -32,6 +30,10 @@ namespace Xadrez_Console {
                         Console.WriteLine(e.Message);
                         Console.ReadLine();
                     }
+                    catch (Exception e) {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
 
 
@@ -39,7 +41,10 @@ namespace Xadrez_Console {
             catch (TabuleiroException e) {
                 Console.WriteLine(e.Message);
             }
-
+            catch (Exception e) {
+                Console.WriteLine(e.Message);
+                Console.ReadLine();
+            }
 
 
             Console.ReadLine();
