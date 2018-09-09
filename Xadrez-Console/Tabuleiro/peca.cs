@@ -7,7 +7,7 @@ namespace Xadrez_Console.tabuleiro {
         public Posicao posicao;
         public Cor cor { get; protected set; }
         public int qntMovimentos { get; protected set; }
-        public Tabuleiro tab { get; protected set; }
+        public Tabuleiro tab { get; set; }
 
         public Peca(Tabuleiro tab, Cor cor) {
             this.posicao = null;
@@ -16,8 +16,13 @@ namespace Xadrez_Console.tabuleiro {
             this.qntMovimentos = 0;
         }
         public void incrementarQntMovimento() {
-            qntMovimentos = qntMovimentos + 1;
+            qntMovimentos++;
         }
+
+        public void decrementarQntMovimento() {
+            qntMovimentos--;
+        }
+
         public abstract bool[,] movimentosPossiveis();
         public bool existeMovimentosPossiveis() {
             bool[,] mat = movimentosPossiveis();
