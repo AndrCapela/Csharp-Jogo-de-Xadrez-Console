@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Xadrez_Console.tabuleiro {
-    class Peca {
+    abstract class Peca {
         public Posicao posicao;
         public Cor cor { get; protected set; }
         public int qntMovimentos { get; protected set; }
@@ -18,5 +18,7 @@ namespace Xadrez_Console.tabuleiro {
         public void incrementarQntMovimento() {
             qntMovimentos = qntMovimentos + 1;
         }
+        public abstract bool[,] movimentosPossiveis();
+
     }
 }
