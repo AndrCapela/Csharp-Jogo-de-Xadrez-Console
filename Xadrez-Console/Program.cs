@@ -35,6 +35,8 @@ namespace Xadrez_Console {
                         Console.ReadLine();
                     }
                 }
+                Console.Clear();
+                Tela.imprimirPartida(partida);
 
 
             }
@@ -46,7 +48,6 @@ namespace Xadrez_Console {
                 Console.ReadLine();
             }
             
-
             Console.ReadLine();
         }
     }
